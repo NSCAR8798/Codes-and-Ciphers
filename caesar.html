@@ -12,11 +12,11 @@
 				function encipher()
 				{
 					var longalpha='aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ';
-					var plaintext = $('#plaintext').val();
+					var plaintext = $('#plaintext textarea').val();
 					var ciphertext = plaintext.split('').map(function(a) {
 						return (s=longalpha.indexOf(a))>=0 ? longalpha[(s+shift*2) % 52] : a;
 					}).join('');
-					$('#ciphertext').val(ciphertext);
+					$('#ciphertext textarea').val(ciphertext);
 				};
 
 
@@ -61,7 +61,7 @@
 						if(shift<0)
 							shift+=26;
 
-						$('#shift').html(shift);
+						$('#shift').html('Shift: '+shift);
 					},
 					stop: function(e,ui) {
 						$(this).css('left',0);
@@ -76,6 +76,9 @@
 			});
 		</script>
 		<style type="text/css">
+			.title {
+				text-align: center;
+			}
 			#cipher {
 				width: 100%;
 				font-size: 2em;
@@ -94,7 +97,7 @@
 			}
 
 			#cipher #shift {
-				float: right;
+				float: left;
 			}
 
 			#letters {
@@ -110,10 +113,15 @@
 			}
 
 			#plaintext, #ciphertext {
+				width: 50%;
+				float:left;
+			}
+
+			textarea {
 				width: 100%;
-				height: 3em;
 				font-size: 1.5em;
 				font-family: serif;
+				height: 3em;
 			}
 
 			#cryptographer {
@@ -123,6 +131,14 @@
 		</style>	
 	</head>
 	<body>
+		<h1 class="title">Caesar Cipher</h1>
+		<div>
+		<p>Messages are enciphered by shifting every letter along the alphabet by a fixed amount.</p>
+		<p>Knowing how one letter is enciphered is enough to crack the whole thing.</p>
+
+		<p>Drag the bottom row of letter about to change the cipher.</p>
+		<p>Write text in the plaintext box and see it enciphered below.</p>
+		</div>
 		<div id="cipher">
 			<div id="top">
 			</div>
@@ -132,14 +148,21 @@
 				<div id="letters"></div>
 			</div>
 			<div id="shift">
+				Shift: 0
 			</div>
 		</div>
 		
 		<form id="cryptographer">
-			<label for="plaintext">Plaintext</label>
-			<textarea id="plaintext">This is no good, no good I say!</textarea>
-			<label for="ciphertext">Ciphertext</label>
-			<textarea id="ciphertext"></textarea>
+			<div id="plaintext">
+				<label>Plaintext</label>
+				<br/>
+				<textarea>This is no good, no good I say!</textarea>
+			</div>
+			<div id="ciphertext">
+				<label>Ciphertext</label>
+				<br/>
+				<textarea></textarea>
+			</div>
 		</form>
 	</body>
 </html>
